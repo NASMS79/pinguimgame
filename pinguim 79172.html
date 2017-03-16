@@ -1,0 +1,373 @@
+
+<html>
+<head>
+	
+<script language="javascript">
+
+var MaxHeight, MaxWidth, posTop, posLeft, points, maxPoints;
+
+
+window.onload =init;
+
+function init(){
+	posTop = 50;
+	posLeft = 150;
+	document.getElementById('character').style.top = posTop+"px";
+	document.getElementById('character').style.left = posLeft+"px";
+	verPosicaoH ();
+	verPosicaoV ();
+	distanceHorizontalPosition();
+	distanceVerticalPosition();
+	points = 101;
+	maxPoints = 100;
+	updatePoints();
+}
+
+function verPosicaoH (){
+ valor=document.getElementById('character').style.left;
+ valor1=parseInt(valor);
+document.getElementById("leftPosition").innerHTML=valor1;
+}
+
+function verPosicaoV (){
+ valor=document.getElementById('character').style.top;
+ valor1=parseInt(valor);
+ document.getElementById("topPosition").innerHTML=valor1;
+}
+
+function updatePoints (){
+ var topP = parseInt(document.getElementById('character').style.top);
+ var leftP = parseInt(document.getElementById('character').style.left);
+ 
+
+ if(topP > 230 && topP < 300 && leftP > 80 && leftP < 210) {
+	if(points < maxPoints){ 
+		points = points + 2;
+	}
+}
+
+if(topP > 530 && topP < 600 && leftP > 240 && leftP < 330) {
+	if(points < maxPoints){ 
+	points = points + 2;
+	}
+}
+
+if(topP > 400 && topP < 450 && leftP > 780 && leftP < 870) {
+	if(points < maxPoints){ 
+	points = points + 2;
+	}
+}
+
+if(topP > 390 && topP < 450 && leftP > 50 && leftP < 430) {
+	if(points < maxPoints){ 
+	points = points - 2;
+	}
+}
+if(topP > 0 && topP < 55 && leftP > 410 && leftP < 570) {
+	if(points < maxPoints){ 
+	points = points - 2;
+	}
+}
+if(topP > 180 && topP < 340 && leftP > 770 && leftP < 1030) {
+	if(points < maxPoints){ 
+	points = points - 4;
+	}
+}
+
+if(topP > 160 && topP < 390 && leftP > 500 && leftP < 590) {
+	if(points < maxPoints){ 
+	points = points - 2;
+	}
+}
+if(topP > 390 && topP < 480 && leftP > 540 && leftP < 630) {
+	if(points < maxPoints){ 
+	points = points - 2;
+	}
+}
+if(topP > 480 && topP < 600 && leftP > 500 && leftP < 650) {
+	if(points < maxPoints){ 
+	points = points - 2;
+	}
+}
+points = points - 1;
+
+ document.getElementById("score-box").innerHTML=points;
+
+ if(points <= (-1) ){
+    alert("GAME OVER");
+	init();
+ }
+ 
+}
+
+function jump () {
+
+
+ var topP = parseInt(document.getElementById('character').style.top);
+ var leftP = parseInt(document.getElementById('character').style.left);
+ if(topP >= 680 && topP <= 720 && leftP >= 540 && leftP <= 560) {
+	document.getElementById('character').style.left = 740;
+	document.getElementById('character').style.top = 670;
+ }
+ if(topP >= 300 && topP <= 340 && leftP >= 390 && leftP <= 410) {
+	document.getElementById('character').style.left = 490;
+	document.getElementById('character').style.top = 430;
+ }
+ if(topP >= 55 && topP <= 160 && leftP >= 470 && leftP <= 600) {
+	document.getElementById('character').style.left = 150;
+	document.getElementById('character').style.top = 270;
+ }
+ if(topP >= 270 && topP <= 320 && leftP >= 660 && leftP <= 740) {
+	document.getElementById('character').style.left = 300;
+	document.getElementById('character').style.top = 560;
+ }
+}
+
+function  checkGameOver() {
+	
+}
+
+function checkWin(){
+	var topP = parseInt(document.getElementById('character').style.top);
+	var leftP = parseInt(document.getElementById('character').style.left);
+	if(topP >= 10 && topP <= 30 && leftP >= 920 && leftP <= 940) {
+		alert("GANHOU");
+		init();
+	}
+}
+
+function updateVerticalPosition (b){
+
+ if ((b < 780)&&(b >= 0)) {
+ document.getElementById('character').style.top=b+"px";
+ verPosicaoV ();
+ distanceVerticalPosition();
+ updatePoints();
+ jump();
+ checkGameOver();
+ checkWin();
+ }
+}
+
+function updateHorizontalPosition (b){
+ if ((b < 1050)&&(b >= 0)) {
+ document.getElementById('character').style.left=b+"px";
+ verPosicaoH();
+ distanceHorizontalPosition();
+ updatePoints();
+ jump();
+ checkGameOver();
+ checkWin();
+ }
+}
+
+function distanceVerticalPosition (){
+ 
+ var distanceTop = parseInt(document.getElementById('character').style.top) - posTop;
+ document.getElementById("topMove").innerHTML=distanceTop;
+}
+function distanceHorizontalPosition (){
+ 
+ var distanceLeft = parseInt(document.getElementById('character').style.left) - posLeft;
+ document.getElementById("leftMove").innerHTML=distanceLeft;
+}
+
+function up(){
+var myclass = new Array('back-right','back-stand','back-left');
+var n= Math.round(Math.random()*2);
+document.getElementById('character').setAttribute('class',myclass[n]);
+var a = document.getElementById('character').style.top;
+if (a==0) a="0";
+b=parseInt(a)-10;
+updateVerticalPosition(b);
+}
+
+function down(){
+var myclass = new Array('front-right','front-stand','front-left');
+var n= Math.round(Math.random()*2);
+document.getElementById('character').setAttribute('class',myclass[n]);
+var a = document.getElementById('character').style.top;
+if (a==0) a="0";
+b=parseInt(a)+10;
+updateVerticalPosition(b);
+}
+
+function left(){
+var myclass = new Array('left-right','left-stand','left-left');
+var n= Math.round(Math.random()*2);
+document.getElementById('character').setAttribute('class',myclass[n]);
+var a = document.getElementById('character').style.left;
+if (a==0) a="0";
+b=parseInt(a)-10;
+updateHorizontalPosition(b);
+}
+
+function right(){
+var myclass = new Array('right-right','right-stand','right-left');
+var n= Math.round(Math.random()*2);
+document.getElementById('character').setAttribute('class',myclass[n]);
+var a = document.getElementById('character').style.left;
+if (a==0) a="0";
+b=parseInt(a)+10;
+updateHorizontalPosition(b);
+}
+
+
+
+
+function Key(e) {
+if (e.keyCode===37) left();
+if (e.keyCode===38) up();
+if (e.keyCode===39) right();
+if (e.keyCode===40) down();
+}
+
+
+
+</script>
+
+
+
+<style type="text/css">
+
+ #character {
+ position: absolute;
+ width: 32px;
+ height: 32px;
+ background: url('character.png') no-repeat;
+ }
+ #character.left-right { background-position: 0px -32px; }
+ #character.left-stand { background-position: -32px -32px; }
+ #character.left-left { background-position: -64px -32px; }
+
+ #character.right-right { background-position: -64px -64px; }
+ #character.right-stand { background-position: -32px -64px; }
+ #character.right-left { background-position: -0px -64px; }
+
+ #character.back-right { background-position: 0px -96px; }
+ #character.back-stand { background-position: -32px -96px; }
+ #character.back-left { background-position: -64px -96px; }
+ #character.front-right { background-position: 0px 0px; }
+ #character.front-stand { background-position: -32px 0px; }
+ #character.front-left { background-position: -64px 0px; }
+ 
+
+
+
+ 
+</style>
+<head>
+	<title>Um Pinguim no Mato</title>
+</head>
+<body onkeydown="Key(event)">
+
+
+<img src="screen.png" style="position:absolute; top:10px; left:10px;"/>
+
+<img src="chest.png" id="chest" style="position:absolute; top:10px; left:910px; width: 60px;
+ height: 60px;"   />
+ 
+<img src="rocks.png" id="rocks" style="position:absolute; top:10px; left:450px;" />
+<img src="rocks.png" id="rocks1" style="position:absolute; top:410px; left:60px;" />
+<img src="rocks.png" id="rocks2" style="position:absolute; top:220px; left:920px;" />
+<img src="rocks.png" id="rocks3" style="position:absolute; top:220px; left:790px;" />
+<img src="rocks.png" id="rocks4" style="position:absolute; top:280px; left:920px;" />
+<img src="rocks.png" id="rocks5" style="position:absolute; top:280px; left:790px;" />
+
+<div id="character">
+
+
+</div>
+
+<div class="score-board" style="position:absolute; top:10px; left:1100px;>
+  <div class="player">
+      <h4>Pontos de Vida</h4>
+      <div id="score-box">
+	   </div>
+  </div>
+</div>
+<div class="score-board" style="position:absolute; top:250px; left:1100px;>
+  <div class="player">
+      <h4>Posição</h4>
+	  <table style="float: left;">
+		<tr>
+			<td>
+				<label style="color:#0000FF;font-weight: bold" for="leftPosition">Posição X</label>
+			</td>
+			<td>
+				<div  id="leftPosition">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label style="color:#0000FF;font-weight: bold" for="topPosition">Posição Y</label>
+			</td>
+			<td>
+				<div id="topPosition">
+				</div>
+			</td>
+		</tr>
+	   </table>
+  </div>
+</div>
+<div class="score-board" style="position:absolute; top:400px; left:1100px;>
+  <div class="player">
+      <h4>Distância</h4>
+	  <table style="float: left;">
+		<tr>
+			<td>
+				<label style="color:#0000FF;font-weight: bold" for="leftMove">Distância X</label>
+			</td>
+			<td>
+				<div  id="leftMove">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label style="color:#0000FF;font-weight: bold" for="leftMove">Distância Y</label>
+			</td>
+			<td>
+				<div id="topMove">
+				</div>
+			</td>
+		</tr>
+	   </table>
+  </div>
+</div>
+<div class="score-board" style="position:absolute; top:550px; left:1100px;>
+	<div class="player" colspan="3">
+      <h4>How to play</h4>
+	  <label style="">Use as teclas ou os botões.<br><br>Tente levar o pinguim até ao tesouro.<br>O pinguim vai perdendo pontos de vida sempre que se move.<br>
+	  Procure locais onde possa recuperar pontos de vida.<br>O pinguim não gosta de atravessar rochas nem o mar vermelho.</label>
+	</div>
+</div>
+<div class="score-board" style="position:absolute; top:100px; left:1100px;>
+  <div class="player">
+      <h4>Botões</h4>
+	  <table style="float: left;">
+		<tr>
+			<td>
+				<button style="width:100px" onclick="up()"> Cima</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button style="width:100px" onclick="down()"> Baixo</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button style="width:100px" onclick="left()"> Esquerda</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button style="width:100px" onclick="right()"> Direita</button>
+			</td>
+		</tr>
+	   </table>
+  </div>
+</div>
+</body>
